@@ -1,0 +1,32 @@
+span {
+  color: white;
+}
+.control {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 3rem;
+  width: 100%;
+  margin-bottom: 7.5rem;
+  display: grid;
+}
+
+.transcripting {
+  color: white;
+}
+.savedTransContainer {
+  color: white;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 20rem;
+  width: 100%;
+  margin-bottom: 11rem;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.listening {
+  display: inline-flex;
+}

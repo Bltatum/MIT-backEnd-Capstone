@@ -13,6 +13,10 @@ namespace MIT.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<UserProfile> UserProfile { get; set; }
+
+        public DbSet<Incident> Incident { get; set; }
+
+        public DbSet<IndividualTranscript> IndividualTranscript{ get; set; }
       
     }
 }

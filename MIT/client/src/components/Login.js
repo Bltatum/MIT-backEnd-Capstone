@@ -2,6 +2,9 @@ import React, { useState, useContext } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useHistory, Link } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
+import Center from "react-center";
+import "../css/Login.css";
+import Register from "./Register";
 
 export default function Login() {
   const history = useHistory();
@@ -18,31 +21,40 @@ export default function Login() {
   };
 
   return (
-    <Form onSubmit={loginSubmit}>
-      <fieldset>
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Input
-            id="email"
-            type="text"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Button>Login</Button>
-        </FormGroup>
-        <em>
-          Not registered? <Link to="register">Register</Link>
-        </em>
-      </fieldset>
-    </Form>
+    <Center>
+      <Form onSubmit={loginSubmit} className="loginForm">
+        <fieldset>
+          <FormGroup>
+            <Label for="email">
+              <h3>Email</h3>
+            </Label>
+            <Input
+              id="email"
+              type="text"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="password">
+              <h3>Password</h3>
+            </Label>
+            <Input
+              id="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Button className="loginButton">Login</Button>
+          </FormGroup>
+          <em>
+            <h4 className="register">Not registered?</h4>
+            <Link to="register">
+              <h4>Register</h4>
+            </Link>
+          </em>
+        </fieldset>
+      </Form>
+    </Center>
   );
 }

@@ -1,0 +1,26 @@
+.loginForm {
+  width: 100%;
+  justify-self: center;
+  padding: 1rem;
+  margin: 1rem;
+  height: 15rem;
+  margin-top: 8rem;
+}
+.loginButton {
+  width: 10rem;
+  height: 4rem;
+}
+
+Label {
+  color: white;
+}
+
+* {
+  background-color: black;
+}
+.register {
+  color: white;
+}
+.header {
+  color: white;
+}

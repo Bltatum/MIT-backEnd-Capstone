@@ -21,5 +21,7 @@ namespace MIT.Models
 
         [Required]
         public int IncidentId { get; set; }
+
+        public UserProfile UserProfile { get; set; }
     }
 }

@@ -11,27 +11,26 @@ namespace MIT.Models
 
         public int Id { get; set; }
 
+        public UserProfile UserProfile { get; set; }
+
+
         [Required]
         public int UserProfileId { get; set; }
 
 
-        [Required]
         public string ImageLocation { get; set; }
 
         [Required]
         public string Address { get; set; }
 
-        [Required]
         public string Comment { get; set; }
 
         [Required]
         public DateTime BeginDateTime { get; set; }
 
 
-        [Required]
-        public DateTime EndDateTime { get; set; }
+       
+        public DateTime? EndDateTime { get; set; }
 
-        [Required]
-        public int IncidentId { get; set; }
     }
 }
