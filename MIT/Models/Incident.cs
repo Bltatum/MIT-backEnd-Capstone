@@ -32,5 +32,7 @@ namespace MIT.Models
        
         public DateTime? EndDateTime { get; set; }
 
+        public List<IndividualTranscript> IndividualTranscript { get; set; }
+
     }
 }

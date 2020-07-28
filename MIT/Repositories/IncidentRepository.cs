@@ -28,17 +28,19 @@ namespace MIT.Repositories
 
         public Incident GetById(int id)
         {
-            return _context.Incident
-                            .FirstOrDefault(i => i.Id == id);
+            return _context.Incident.Include(i => i.UserProfile)
+                              .Include(i => i.IndividualTranscript)
+                               .FirstOrDefault(i => i.Id == id);
+
         }
 
 
         public List<Incident> GetByUserProfileId(int id)
         {
             return _context.Incident.Include(i => i.UserProfile)
-                                 .Include(i => i.Comment)
+                              .Include(i => i.IndividualTranscript)
                             .Where(i => i.UserProfileId == id)
-                            .OrderBy(i => i.Address)
+                            .OrderByDescending(i => i.BeginDateTime)
                             .ToList();
         }
 
@@ -69,6 +71,9 @@ namespace MIT.Repositories
         {
 
             var incident = GetById(id);
+            var relatedTrans = _context.IndividualTranscript.Where(r => r.IncidentId == id);
+            _context.IndividualTranscript.RemoveRange(relatedTrans);
+
             _context.Incident.Remove(incident);
             _context.SaveChanges();
         }

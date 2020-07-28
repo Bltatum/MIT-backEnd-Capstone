@@ -25,7 +25,7 @@ export default function Header() {
   };
 
   const routeMyIncidents = () => {
-    let path = `myincidents`;
+    let path = `/incidents`;
     history.push(path);
   };
 
@@ -55,7 +55,10 @@ export default function Header() {
                     aria-current="page"
                     className="nav-link"
                     style={{ cursor: "pointer" }}
-                    onClick={routeHome}
+                    onClick={(e) => {
+                      routeHome(e);
+                      toggle();
+                    }}
                   >
                     Home
                   </a>
@@ -65,7 +68,10 @@ export default function Header() {
                     aria-current="page"
                     className="nav-link"
                     style={{ cursor: "pointer" }}
-                    onClick={routeMyIncidents}
+                    onClick={(e) => {
+                      routeMyIncidents(e);
+                      toggle();
+                    }}
                   >
                     My Incidents
                   </a>
