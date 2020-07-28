@@ -41,7 +41,7 @@ export const IncidentProvider = (props) => {
 
   const getIncident = (id) =>
     getToken().then((token) =>
-      fetch(`/api/Incident/${id}`, {
+      fetch(`/api/incident/${id}`, {
         method: "Get",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -88,6 +88,21 @@ export const IncidentProvider = (props) => {
       })
     );
   };
+  const deleteIncidentById = (id) => {
+    return getToken().then((token) =>
+      fetch(apiUrl + `/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((resp) => {
+        if (resp.ok) {
+          return;
+        }
+        throw new Error("Failed to delete post.");
+      })
+    );
+  };
 
   return (
     <IncidentContext.Provider
@@ -98,6 +113,7 @@ export const IncidentProvider = (props) => {
         getIncident,
         addIncident,
         editIncident,
+        deleteIncidentById,
       }}
     >
       {props.children}

@@ -12,7 +12,7 @@ const HomePage = () => {
   const history = useHistory();
 
   const routeMyIncidents = () => {
-    let path = `/myincidents`;
+    let path = `/incidents`;
     history.push(path);
   };
 
@@ -26,6 +26,7 @@ const HomePage = () => {
     e.preventDefault();
     formState.userProfileId = +userProfileId;
     formState.beginDateTime = new Date();
+    formState.endDateTime = null;
     addIncident(formState).then((i) => {
       history.push(`/newincident/${i.id}`);
     });
@@ -43,7 +44,7 @@ const HomePage = () => {
             placeholder="Incident Address"
             onChange={handleUserInput}
           />
-          <Button color="info" type="submit" className="addressSubmitButton">
+          <Button type="submit" className="addressSubmitButton">
             New Incident
           </Button>
         </Form>

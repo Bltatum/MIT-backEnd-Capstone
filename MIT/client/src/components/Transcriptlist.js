@@ -5,25 +5,18 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { IndividualTranscriptContext } from "../providers/IndividualTranscriptProvider";
-import { useHistory, useParams, Route, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { IncidentContext } from "../providers/IncidentProvider";
-import HomePage from "./Home";
-
-let array = [];
 
 const Transcript = () => {
   const { addIndividualTranscript } = useContext(IndividualTranscriptContext);
-  const { addIncident, editIncident, getIncident } = useContext(
-    IncidentContext
-  );
+  const { editIncident, getIncident } = useContext(IncidentContext);
   const userProfileId = JSON.parse(sessionStorage.getItem("userProfile")).id;
   const {
     transcript,
     resetTranscript,
-    interimTranscript,
     finalTranscript,
     listening,
-    transcribing,
   } = useSpeechRecognition();
   const start = () => SpeechRecognition.startListening({ continuous: true });
   const stop = () => SpeechRecognition.stopListening();
@@ -31,20 +24,8 @@ const Transcript = () => {
     SpeechRecognition.startListening({ continuous: false });
   const reset = () => resetTranscript();
   const { id } = useParams();
-  // const incident = getIncident(id);
-
-  // const save = () => {
-  //   const updatedIncident = {
-  //     id: id,
-  //     address: incident.address,
-  //     endDateTime: new Date(),
-  //   };
-  //   editIncident(updatedIncident.id, updatedIncident)
-  //    .then(
-  //     window.location.reload(false)
-  //    );
-  // };
-
+  const [incident, setIncident] = useState();
+  const [individualTans, setIndividualTrans] = useState([]);
   let date = new Date();
   let formattedDate =
     date.getMonth() +
@@ -60,16 +41,36 @@ const Transcript = () => {
     date.getSeconds();
 
   useEffect(() => {
+    getIncident(id).then(setIncident);
+  }, []);
+
+  let endDate = new Date();
+  const save = () => {
+    const updatedIncident = {
+      id: id,
+      userProfileId: userProfileId,
+      address: incident.address,
+      beginDateTime: incident.beginDateTime,
+      endDateTime: endDate,
+    };
+    editIncident(updatedIncident.id, updatedIncident).then(
+      window.location.reload(false)
+    );
+  };
+
+  useEffect(() => {
     if (finalTranscript !== "") {
       reset();
-      array.push(formattedDate + "-    " + finalTranscript);
+      setIndividualTrans([
+        ...individualTans,
+        formattedDate + "-" + finalTranscript,
+      ]);
       addIndividualTranscript({
         startDateTime: new Date(),
         text: finalTranscript,
         incidentId: id,
         userProfileId: userProfileId,
       });
-      console.log("final result:", array);
     }
   }, [finalTranscript]);
 
@@ -84,13 +85,12 @@ const Transcript = () => {
         <h4> {listening ? "On" : "Off"}</h4>
       </span>
       <br />
-
       <div className="transcripting">
         <h3>"{transcript}"</h3>
       </div>
       <br />
       <Form id="addTransForm" className="savedTransContainer">
-        {array.map((a) => (
+        {individualTans.map((a) => (
           <h6>{a}.</h6>
         ))}
       </Form>
@@ -100,7 +100,7 @@ const Transcript = () => {
         <br />
         <Button onClick={(fullStop, stop)}>Stop</Button>
         <br />
-        {/* <Button onClick={save}>Save</Button> */}
+        <Button onClick={save}>Save</Button>
       </div>
     </div>
   );

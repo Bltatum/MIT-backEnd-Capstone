@@ -5,7 +5,8 @@ import Login from "./Login";
 import Register from "./Register";
 import Transcript from "./Transcriptlist";
 import HomePage from "./Home";
-import MyIncidents from "./MyIncidents";
+import IncidentList from "./IncidentList";
+import IncidentDetails from "./IncidentDetails";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -16,12 +17,15 @@ export default function ApplicationViews() {
         <Route path="/newincident/:id">
           {isLoggedIn ? <Transcript /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/myincidents">
-          {isLoggedIn ? <MyIncidents /> : <Redirect to="/login" />}
+        <Route path="/incidents">
+          {isLoggedIn ? <IncidentList /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/" exact>
           {isLoggedIn ? <HomePage /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/incident/:id">
+          {isLoggedIn ? <IncidentDetails /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
