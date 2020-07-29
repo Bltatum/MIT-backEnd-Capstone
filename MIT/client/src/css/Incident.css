@@ -23,7 +23,7 @@ p {
 .details {
   color: lightgray;
   background-color: lightgray;
-  height: 28.5rem;
+  height: 30.5rem;
   overflow: scroll;
 }
 .card-body {
@@ -39,8 +39,10 @@ h5 {
 }
 
 .toast {
-  border: solid;
+  position: fixed;
   background-color: black;
+  margin-top: 15rem;
+  margin-left: 3.5rem;
 }
 
 .toast-body {
@@ -48,7 +50,6 @@ h5 {
 }
 .buttonContainer {
   background-color: white;
-  margin: 0.5rem;
 }
 .cancel {
   margin-right: 1rem;
@@ -58,4 +59,11 @@ h5 {
 }
 #address {
   text-align: center;
+}
+.buttons {
+  background-color: black;
+  display: inline-flex;
+}
+.button {
+  margin: 0.5rem;
 }
