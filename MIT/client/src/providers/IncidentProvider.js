@@ -104,6 +104,17 @@ export const IncidentProvider = (props) => {
     );
   };
 
+  const searchIncidents = (searchString) => {
+    return getToken().then((token) =>
+      fetch(apiUrl + `/search?searchString=${searchString}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => res.json())
+    );
+  };
+
   return (
     <IncidentContext.Provider
       value={{
@@ -114,6 +125,7 @@ export const IncidentProvider = (props) => {
         addIncident,
         editIncident,
         deleteIncidentById,
+        searchIncidents,
       }}
     >
       {props.children}

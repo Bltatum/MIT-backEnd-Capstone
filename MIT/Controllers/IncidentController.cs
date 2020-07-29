@@ -86,7 +86,6 @@ namespace MIT.Controllers
             _incidentRepository.Add(incident);
             return CreatedAtAction(nameof(Get), new { id = incident.Id }, incident);
         }
-
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

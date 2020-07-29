@@ -45,12 +45,15 @@ export default function Login() {
             />
           </FormGroup>
           <FormGroup>
-            <Button className="loginButton">Login</Button>
+            <Button className="loginButton">
+              <h4 className="login">Login</h4>
+            </Button>
           </FormGroup>
+
           <em>
             <h4 className="register">Not registered?</h4>
             <Link to="register">
-              <h4>Register</h4>
+              <h4 className="registerLink">Register</h4>
             </Link>
           </em>
         </fieldset>

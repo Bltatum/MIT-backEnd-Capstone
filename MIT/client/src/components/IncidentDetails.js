@@ -74,7 +74,7 @@ const IncidentDetails = () => {
 
   return (
     <Card>
-      <CardBody>
+      <CardBody className="details">
         <p>
           <h4>Address: {incident.address}</h4>
         </p>
@@ -93,8 +93,7 @@ const IncidentDetails = () => {
           )}
         </p>
       </CardBody>
-      <Toast isOpen={showToast}>
-        <ToastHeader className="bg-danger">Edit Address</ToastHeader>
+      <Toast isOpen={showToast} className="toast">
         <ToastBody>
           <input
             id="address"
@@ -105,11 +104,11 @@ const IncidentDetails = () => {
           />
         </ToastBody>
         <div className="buttonContainer">
-          <Button onClick={toggleToast} color="primary">
-            No, Cancel
+          <Button onClick={toggleToast} color="primary" className="cancel">
+            Cancel
           </Button>
-          <Button onClick={edit} color="danger">
-            Edit
+          <Button onClick={edit} color="danger" className="save">
+            Save
           </Button>
         </div>
       </Toast>

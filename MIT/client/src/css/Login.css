@@ -10,6 +10,9 @@
   width: 10rem;
   height: 4rem;
 }
+.login {
+  background-color: #6c757d;
+}
 
 Label {
   color: white;
@@ -20,7 +23,14 @@ Label {
 }
 .register {
   color: white;
+  background-color: black;
 }
 .header {
   color: white;
+}
+h4 {
+  background-color: black;
+}
+.registerLink {
+  background-color: black;
 }
