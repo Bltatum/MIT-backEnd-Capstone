@@ -4,7 +4,6 @@ import { useHistory, Link } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Center from "react-center";
 import "../css/Login.css";
-import Register from "./Register";
 
 export default function Login() {
   const history = useHistory();

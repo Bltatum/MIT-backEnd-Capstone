@@ -11,6 +11,7 @@ export const SearchResults = ({ searchTerms }) => {
 
   useEffect(() => {
     getUserIncidents(currentUserId).then(setIncidents);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

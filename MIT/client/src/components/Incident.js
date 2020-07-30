@@ -1,9 +1,8 @@
-import { Card, CardBody, CardFooter, Button } from "reactstrap";
-import { useParams, useLocation, useHistory } from "react-router-dom";
-import React, { useState, useContext, useEffect } from "react";
-import { IncidentContext } from "../providers/IncidentProvider";
+import { Card, CardBody } from "reactstrap";
+import { useHistory } from "react-router-dom";
+import React from "react";
+
 import "../css/Incident.css";
-import { Redirect } from "react-router-dom";
 
 const Incident = ({ incident }) => {
   let formatedDate = null;

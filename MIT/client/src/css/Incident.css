@@ -7,6 +7,16 @@
   flex-direction: column;
   margin: 1rem;
 }
+.header {
+  color: black;
+  background-color: lightgray;
+  font-size: large;
+}
+.indTrans {
+  color: black;
+  background-color: lightgray;
+  font-size: large;
+}
 p {
   color: black;
   background-color: lightgray;

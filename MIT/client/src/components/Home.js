@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Button, Form } from "reactstrap";
 import { IncidentContext } from "../providers/IncidentProvider";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../css/Home.css";
 
 const HomePage = () => {

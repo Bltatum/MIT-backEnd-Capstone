@@ -1,16 +1,13 @@
 import {
   Card,
   CardBody,
-  CardFooter,
   Button,
   Toast,
   ToastBody,
-  ToastHeader,
   Input,
-  Form,
   CardImg,
 } from "reactstrap";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { IncidentContext } from "../providers/IncidentProvider";
 import "../css/Incident.css";
@@ -31,6 +28,7 @@ const IncidentDetails = () => {
 
   useEffect(() => {
     getIncident(id).then(setIncident);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   let formatedDate = null;
   let unformatedDate = null;
@@ -115,23 +113,23 @@ const IncidentDetails = () => {
       <Card>
         <CardBody className="details">
           <CardImg top src={incident.imageLocation} alt={incident.address} />
-          <p>
+          <div className="header">
             <h4>Address: {incident.address}</h4>
-          </p>
-          <p>
-            <h5>Date: {formatedDate}</h5>
-          </p>
-          <p>
+          </div>
+          <div>
+            <h5 className="header">Date: {formatedDate}</h5>
+          </div>
+          <div className="indTrans">
             {incident.individualTranscript === undefined ? (
               <p>No transcript available</p>
             ) : (
               incident.individualTranscript.map((it) => (
-                <p>
+                <p key={it.id}>
                   {it.startDateTime}:<br /> {it.text}
                 </p>
               ))
             )}
-          </p>
+          </div>
         </CardBody>
 
         <Toast isOpen={showToast} className="toast">

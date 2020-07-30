@@ -7,15 +7,18 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
 } from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import { useHistory } from "react-router-dom";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 export default function Header() {
   const { isLoggedIn, logout } = useContext(UserProfileContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const stop = () => SpeechRecognition.stopListening();
 
   const history = useHistory();
 
@@ -58,6 +61,7 @@ export default function Header() {
                       onClick={(e) => {
                         routeHome(e);
                         toggle();
+                        stop();
                       }}
                     >
                       Home
@@ -71,6 +75,7 @@ export default function Header() {
                       onClick={(e) => {
                         routeMyIncidents(e);
                         toggle();
+                        stop();
                       }}
                     >
                       My Incidents

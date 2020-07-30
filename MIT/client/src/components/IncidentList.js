@@ -9,10 +9,11 @@ const IncidentList = () => {
   const { getUserIncidents } = useContext(IncidentContext);
   const currentUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
   const [incidentState, setIncidentState] = useState([]);
-  const [searchTerms, setTerms] = useState(null);
+  const [searchTerms, setTerms] = useState(" ");
 
   useEffect(() => {
     getUserIncidents(currentUserId).then(setIncidentState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -22,12 +23,15 @@ const IncidentList = () => {
           <h1>Incidents</h1>
         </span>
         <SearchBar setTerms={setTerms} />
-        <SearchResults searchTerms={searchTerms} />
-        <div className="individualIncidentContainer">
-          {incidentState.map((i) => (
-            <Incident key={i.id} incident={i} />
-          ))}
-        </div>
+        {searchTerms !== "" ? (
+          <SearchResults searchTerms={searchTerms} />
+        ) : (
+          <div className="individualIncidentContainer">
+            {incidentState.map((i) => (
+              <Incident key={i.id} incident={i} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

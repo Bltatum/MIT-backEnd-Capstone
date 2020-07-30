@@ -1,11 +1,16 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { Button, Form, Input, FormGroup } from "reactstrap";
+import React, { useState, useEffect, useContext } from "react";
+import { Button, Form } from "reactstrap";
 import "../css/Transcript.css";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { IndividualTranscriptContext } from "../providers/IndividualTranscriptProvider";
-import { useParams, useHistory } from "react-router-dom";
+import {
+  useParams,
+  useHistory,
+  useLocation,
+  useRouteMatch,
+} from "react-router-dom";
 import { IncidentContext } from "../providers/IncidentProvider";
 
 const Transcript = () => {
@@ -20,12 +25,18 @@ const Transcript = () => {
   } = useSpeechRecognition();
   const start = () => SpeechRecognition.startListening({ continuous: true });
   const stop = () => SpeechRecognition.stopListening();
+
   const fullStop = () =>
     SpeechRecognition.startListening({ continuous: false });
   const reset = () => resetTranscript();
   const { id } = useParams();
   const [incident, setIncident] = useState();
   const [individualTans, setIndividualTrans] = useState([]);
+  const [startClicked, setClicked] = useState(false);
+
+  window.onbeforeunload = function () {
+    stop();
+  };
 
   const history = useHistory();
 
@@ -50,6 +61,7 @@ const Transcript = () => {
 
   useEffect(() => {
     getIncident(id).then(setIncident);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let endDate = new Date();
@@ -101,18 +113,37 @@ const Transcript = () => {
       <br />
       <Form id="addTransForm" className="savedTransContainer">
         {individualTans.map((a) => (
-          <h6>{a}.</h6>
+          <div key={a}>{a}.</div>
         ))}
       </Form>
 
       <div className="control">
-        <Button onClick={start}>Start Transcription</Button>
+        <Button
+          onClick={(e) => {
+            start(e);
+            setClicked(true);
+          }}
+        >
+          Start Transcription
+        </Button>
         <br />
         <Button onClick={(fullStop, stop)}>Stop Transcription</Button>
         <br />
-        <Button onClick={save}>Save Transcript</Button>
+        {!listening && startClicked === true ? (
+          <Button
+            onClick={(e) => {
+              save(e);
+              stop();
+            }}
+          >
+            Save Transcript
+          </Button>
+        ) : (
+          " "
+        )}
       </div>
     </div>
   );
 };
+
 export default Transcript;
