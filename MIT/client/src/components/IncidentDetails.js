@@ -133,6 +133,7 @@ const IncidentDetails = () => {
             )}
           </p>
         </CardBody>
+
         <Toast isOpen={showToast} className="toast">
           <ToastBody>
             <input
@@ -144,17 +145,17 @@ const IncidentDetails = () => {
             />
           </ToastBody>
           <div className="buttonContainer">
-            <Button onClick={toggleToast} color="primary" className="cancel">
+            <Button onClick={toggleToast} className="cancel">
               Cancel
             </Button>
-            <Button onClick={edit} color="danger" className="save">
+            <Button onClick={edit} className="save">
               Save
             </Button>
           </div>
         </Toast>
-        <Toast isOpen={showImageToast} className="toast">
+        <Toast isOpen={showImageToast} className="toastImage">
           <ToastBody>
-            <input
+            <Input
               type="file"
               name="file"
               placeholder="Upload image here"
@@ -167,11 +168,7 @@ const IncidentDetails = () => {
             )}
           </ToastBody>
           <div className="buttonContainer">
-            <Button
-              onClick={toggleImageToast}
-              color="primary"
-              className="cancel"
-            >
+            <Button onClick={toggleImageToast} className="cancel">
               Cancel
             </Button>
             <Button onClick={addImage} className="saveImage">
@@ -192,7 +189,6 @@ const IncidentDetails = () => {
         </Button>
         <Button
           className="button"
-          color="danger"
           onClick={(evt) => {
             evt.preventDefault();
             Delete();

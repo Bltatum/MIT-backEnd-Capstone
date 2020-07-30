@@ -24,7 +24,7 @@ const IncidentList = () => {
         </span>
         <SearchBar setTerms={setTerms} />
         <SearchResults searchTerms={searchTerms} />
-        <div className="individualIncident">
+        <div className="individualIncidentContainer">
           {incidentState.map((i) => (
             <Incident key={i.id} incident={i} />
           ))}
