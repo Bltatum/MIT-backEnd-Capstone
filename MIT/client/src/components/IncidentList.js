@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import Incident from "./Incident";
 import { IncidentContext } from "../providers/IncidentProvider";
 import "../css/Incident.css";
-import { Center } from "react-center";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
 

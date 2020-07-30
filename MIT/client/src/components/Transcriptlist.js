@@ -5,7 +5,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { IndividualTranscriptContext } from "../providers/IndividualTranscriptProvider";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { IncidentContext } from "../providers/IncidentProvider";
 
 const Transcript = () => {
@@ -26,6 +26,14 @@ const Transcript = () => {
   const { id } = useParams();
   const [incident, setIncident] = useState();
   const [individualTans, setIndividualTrans] = useState([]);
+
+  const history = useHistory();
+
+  const routeChange = () => {
+    let path = `/incidents`;
+    history.push(path);
+  };
+
   let date = new Date();
   let formattedDate =
     date.getMonth() +
@@ -45,6 +53,7 @@ const Transcript = () => {
   }, []);
 
   let endDate = new Date();
+
   const save = () => {
     const updatedIncident = {
       id: id,
@@ -54,7 +63,8 @@ const Transcript = () => {
       endDateTime: endDate,
     };
     editIncident(updatedIncident.id, updatedIncident).then(
-      window.location.reload(false)
+      // window.location.reload(false)
+      routeChange
     );
   };
 
@@ -81,8 +91,8 @@ const Transcript = () => {
   return (
     <div className="transcript">
       <span className="listening">
-        <h4>Listening-</h4>
-        <h4> {listening ? "On" : "Off"}</h4>
+        <h4 className="h4">Listening-</h4>
+        <h4 className="h4"> {listening ? "On" : "Off"}</h4>
       </span>
       <br />
       <div className="transcripting">
@@ -96,11 +106,11 @@ const Transcript = () => {
       </Form>
 
       <div className="control">
-        <Button onClick={start}>Start</Button>
+        <Button onClick={start}>Start Transcription</Button>
         <br />
-        <Button onClick={(fullStop, stop)}>Stop</Button>
+        <Button onClick={(fullStop, stop)}>Stop Transcription</Button>
         <br />
-        <Button onClick={save}>Save</Button>
+        <Button onClick={save}>Save Transcript</Button>
       </div>
     </div>
   );

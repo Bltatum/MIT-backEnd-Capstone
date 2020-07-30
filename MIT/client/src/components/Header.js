@@ -28,59 +28,66 @@ export default function Header() {
     let path = `/incidents`;
     history.push(path);
   };
-
-  return (
-    <div>
-      <Navbar color="dark" dark expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">
-          M.I.T.
-        </NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            {isLoggedIn && (
-              <>
-                <NavItem>
-                  <a
-                    aria-current="page"
-                    className="nav-link"
-                    style={{ cursor: "pointer" }}
-                    onClick={logout}
-                  >
-                    Logout
-                  </a>
-                </NavItem>
-                <NavItem>
-                  <a
-                    aria-current="page"
-                    className="nav-link"
-                    style={{ cursor: "pointer" }}
-                    onClick={(e) => {
-                      routeHome(e);
-                      toggle();
-                    }}
-                  >
-                    Home
-                  </a>
-                </NavItem>
-                <NavItem>
-                  <a
-                    aria-current="page"
-                    className="nav-link"
-                    style={{ cursor: "pointer" }}
-                    onClick={(e) => {
-                      routeMyIncidents(e);
-                      toggle();
-                    }}
-                  >
-                    My Incidents
-                  </a>
-                </NavItem>
-              </>
-            )}
-          </Nav>
-        </Collapse>
-      </Navbar>
-    </div>
-  );
+  if (isLoggedIn === true) {
+    return (
+      <div>
+        <Navbar color="dark" dark expand="md">
+          <NavbarBrand tag={RRNavLink} to="/">
+            M.I.T.
+          </NavbarBrand>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="mr-auto" navbar>
+              {isLoggedIn && (
+                <>
+                  <NavItem>
+                    <a
+                      aria-current="page"
+                      className="nav-link"
+                      style={{ cursor: "pointer" }}
+                      onClick={logout}
+                    >
+                      Logout
+                    </a>
+                  </NavItem>
+                  <NavItem>
+                    <a
+                      aria-current="page"
+                      className="nav-link"
+                      style={{ cursor: "pointer" }}
+                      onClick={(e) => {
+                        routeHome(e);
+                        toggle();
+                      }}
+                    >
+                      Home
+                    </a>
+                  </NavItem>
+                  <NavItem>
+                    <a
+                      aria-current="page"
+                      className="nav-link"
+                      style={{ cursor: "pointer" }}
+                      onClick={(e) => {
+                        routeMyIncidents(e);
+                        toggle();
+                      }}
+                    >
+                      My Incidents
+                    </a>
+                  </NavItem>
+                </>
+              )}
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>M.I.T.</h1>
+      </div>
+    );
+  }
 }

@@ -9,7 +9,8 @@ export default function Register() {
   const history = useHistory();
   const { register } = useContext(UserProfileContext);
 
-  const [name, setName] = useState();
+  const [firstname, setFirstName] = useState();
+  const [lastname, setLastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
@@ -19,7 +20,7 @@ export default function Register() {
     if (password && password !== confirmPassword) {
       alert("Passwords don't match. Do better.");
     } else {
-      const userProfile = { name, email };
+      const userProfile = { firstname, lastname, email };
       register(userProfile, password).then(() => history.push("/"));
     }
   };
@@ -29,13 +30,25 @@ export default function Register() {
       <Form onSubmit={registerClick} className="registerForm">
         <fieldset>
           <FormGroup>
-            <Label htmlFor="name">
-              <h3>Name</h3>
+            <Label htmlFor="firstname">
+              <h3>First Name</h3>
             </Label>
             <Input
-              id="name"
+              id="firstname"
               type="text"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="lastname">
+              <h3>Last Name</h3>
+            </Label>
+            <Input
+              id="lastname"
+              type="text"
+              onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -46,6 +59,7 @@ export default function Register() {
               id="email"
               type="text"
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -56,6 +70,7 @@ export default function Register() {
               id="password"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -66,6 +81,7 @@ export default function Register() {
               id="confirmPassword"
               type="password"
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </FormGroup>
           <FormGroup>

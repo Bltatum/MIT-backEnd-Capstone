@@ -15,7 +15,7 @@ export function UserProfileProvider(props) {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((u) => {
-      // setIsLoggedIn(!!u);
+      setIsLoggedIn(!!u);
       setIsFirebaseReady(true);
     });
   }, []);
@@ -25,10 +25,8 @@ export function UserProfileProvider(props) {
       .auth()
       .signInWithEmailAndPassword(email, pw)
       .then((signInResponse) => getUserProfile(signInResponse.user.uid))
-      .then(
-        (userProfile) =>
-          sessionStorage.setItem("userProfile", JSON.stringify(userProfile)),
-        setIsLoggedIn(true)
+      .then((userProfile) =>
+        sessionStorage.setItem("userProfile", JSON.stringify(userProfile))
       );
   };
 
@@ -36,7 +34,10 @@ export function UserProfileProvider(props) {
     return firebase
       .auth()
       .signOut()
-      .then(() => sessionStorage.clear());
+      .then(() => {
+        sessionStorage.clear();
+        setIsLoggedIn(false);
+      });
   };
 
   const register = (userProfile, password) => {
