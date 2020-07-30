@@ -7,6 +7,7 @@ import SpeechRecognition, {
 import { IndividualTranscriptContext } from "../providers/IndividualTranscriptProvider";
 import { useParams, useHistory } from "react-router-dom";
 import { IncidentContext } from "../providers/IncidentProvider";
+import { render } from "react-dom";
 
 const Transcript = () => {
   const { addIndividualTranscript } = useContext(IndividualTranscriptContext);
@@ -26,6 +27,7 @@ const Transcript = () => {
   const { id } = useParams();
   const [incident, setIncident] = useState();
   const [individualTans, setIndividualTrans] = useState([]);
+  const [counter, setCounter] = useState(5);
 
   const history = useHistory();
 
@@ -84,6 +86,10 @@ const Transcript = () => {
     }
   }, [finalTranscript]);
 
+  useEffect(() => {
+    counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+  }, [counter]);
+
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return null;
   }
@@ -95,6 +101,9 @@ const Transcript = () => {
         <h4 className="h4"> {listening ? "On" : "Off"}</h4>
       </span>
       <br />
+      <div className="counter">
+        <div>Countdown: {counter}</div>
+      </div>
       <div className="transcripting">
         <h3>"{transcript}"</h3>
       </div>
