@@ -9,5 +9,11 @@
 }
 
 .addressSubmitButton {
+  width: 15rem;
   margin: 1rem;
+}
+
+.viewInidentsButton {
+  width: 15rem;
+  margin-top: 2rem;
 }

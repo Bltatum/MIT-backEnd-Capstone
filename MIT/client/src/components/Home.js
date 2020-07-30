@@ -45,11 +45,13 @@ const HomePage = () => {
             onChange={handleUserInput}
           />
           <Button type="submit" className="addressSubmitButton">
-            New Incident
+            Start New Incident
+          </Button>
+          <Button onClick={routeMyIncidents} className="viewInidentsButton">
+            View Incidents
           </Button>
         </Form>
         <br />
-        <Button onClick={routeMyIncidents}>View Incidents</Button>
       </div>
     </div>
   );
