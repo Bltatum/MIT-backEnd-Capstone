@@ -129,6 +129,7 @@ const Transcript = () => {
       <div className="control">
         {!listening ? (
           <Button
+            active
             onClick={(e) => {
               start(e);
               setClicked(true);
@@ -139,14 +140,31 @@ const Transcript = () => {
             Start Transcription
           </Button>
         ) : (
-          " "
+          <Button
+            disabled
+            onClick={(e) => {
+              start(e);
+              setClicked(true);
+              setCounter(2);
+              setStartTimer(true);
+            }}
+          >
+            Start Transcription
+          </Button>
         )}
         ;
-        <br />
-        <Button onClick={(fullStop, stop)}>Stop Transcription</Button>
-        <br />
+        {listening ? (
+          <Button active onClick={(fullStop, stop)}>
+            Stop Transcription
+          </Button>
+        ) : (
+          <Button disabled onClick={(fullStop, stop)}>
+            Stop Transcription
+          </Button>
+        )}
         {!listening && startClicked === true ? (
           <Button
+            active
             onClick={(e) => {
               save(e);
               stop();
@@ -155,7 +173,15 @@ const Transcript = () => {
             Save Transcript
           </Button>
         ) : (
-          " "
+          <Button
+            disabled
+            onClick={(e) => {
+              save(e);
+              stop();
+            }}
+          >
+            Save Transcript
+          </Button>
         )}
       </div>
     </div>
