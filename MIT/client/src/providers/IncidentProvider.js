@@ -106,7 +106,7 @@ export const IncidentProvider = (props) => {
 
   const searchIncidents = (searchString) => {
     return getToken().then((token) =>
-      fetch(apiUrl + `/search?searchString=${searchString}`, {
+      fetch(apiUrl + `/search?q=${searchString}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

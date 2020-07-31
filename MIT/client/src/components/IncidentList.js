@@ -2,19 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import Incident from "./Incident";
 import { IncidentContext } from "../providers/IncidentProvider";
 import "../css/Incident.css";
-import { SearchBar } from "./SearchBar";
-import { SearchResults } from "./SearchResults";
+import { Input } from "reactstrap";
 
 const IncidentList = () => {
-  const { getUserIncidents } = useContext(IncidentContext);
+  const { getUserIncidents, searchIncidents } = useContext(IncidentContext);
   const currentUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
   const [incidentState, setIncidentState] = useState([]);
-  const [searchTerms, setTerms] = useState(" ");
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
     getUserIncidents(currentUserId).then(setIncidentState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleChange = (evt) => {
+    searchIncidents(evt.target.value).then((results) => setResults(results));
+  };
 
   return (
     <div className="row justify-content-center">
@@ -22,9 +25,18 @@ const IncidentList = () => {
         <span>
           <h1>Incidents</h1>
         </span>
-        <SearchBar setTerms={setTerms} />
-        {searchTerms !== "" ? (
-          <SearchResults searchTerms={searchTerms} />
+        <Input
+          className="search"
+          type="text"
+          onChange={handleChange}
+          placeholder="Search Incidents"
+        />
+        {results.length ? (
+          <div>
+            {results.map((r) => (
+              <Incident key={r.id} incident={r} />
+            ))}
+          </div>
         ) : (
           <div className="individualIncidentContainer">
             {incidentState.map((i) => (

@@ -1,21 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MIT.Data;
 using MIT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace MIT.Repositories
 {
-    public class IncidentRepository
+    public class IncidentRepository 
     {
 
         private readonly ApplicationDbContext _context;
+        private readonly UserProfileRepository _userProfileRepository;
 
         public IncidentRepository(ApplicationDbContext context)
         {
             _context = context;
+            _userProfileRepository = new UserProfileRepository(context);
         }
 
         public List<Incident> GetAll()
@@ -44,11 +47,13 @@ namespace MIT.Repositories
                             .ToList();
         }
 
-        public List<Incident> Search(string criterion, bool sortDescending)
+        public List<Incident> Search(string criterion, bool sortDescending, int id)
         {
+           
             var query = _context.Incident
                                 .Include(i => i.UserProfile)
-                                .Where(i => i.Address.Contains(criterion));
+                                .Include(i => i.IndividualTranscript)
+                                .Where(i => i.Address.Contains(criterion) && i.UserProfileId == id);
 
             return sortDescending
                 ? query.OrderByDescending(i => i.BeginDateTime).ToList()
@@ -78,14 +83,7 @@ namespace MIT.Repositories
             _context.SaveChanges();
         }
 
-        //Test Driven development
-        public List<Incident> GetMostRecent(int numResults)
-        {
-            return _context.Incident
-                          .Take(numResults)
-                          .OrderByDescending(i => i.BeginDateTime)
-                          .ToList();
-        }
+
 
     }
 }

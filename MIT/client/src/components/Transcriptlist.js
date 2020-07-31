@@ -5,12 +5,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { IndividualTranscriptContext } from "../providers/IndividualTranscriptProvider";
-import {
-  useParams,
-  useHistory,
-  useLocation,
-  useRouteMatch,
-} from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { IncidentContext } from "../providers/IncidentProvider";
 
 const Transcript = () => {
