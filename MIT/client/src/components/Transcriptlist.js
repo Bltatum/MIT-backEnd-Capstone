@@ -28,6 +28,8 @@ const Transcript = () => {
   const [incident, setIncident] = useState();
   const [individualTans, setIndividualTrans] = useState([]);
   const [startClicked, setClicked] = useState(false);
+  const [counter, setCounter] = useState();
+  const [startTime, setStartTimer] = useState(false);
 
   window.onbeforeunload = function () {
     stop();
@@ -91,6 +93,12 @@ const Transcript = () => {
     }
   }, [finalTranscript]);
 
+  useEffect(() => {
+    if (startTime === true) {
+      counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+    }
+  }, [startTime, counter]);
+
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return null;
   }
@@ -98,13 +106,19 @@ const Transcript = () => {
   return (
     <div className="transcript">
       <span className="listening">
-        <h4 className="h4">Listening-</h4>
-        <h4 className="h4"> {listening ? "On" : "Off"}</h4>
+        {counter > 0 ? (
+          <div style={{ color: "white" }}>
+            <h4 className="h4">Recording: {counter}</h4>
+          </div>
+        ) : (
+          <h4 className="h4">Listening {listening ? "On" : "Off"}</h4>
+        )}
       </span>
       <br />
       <div className="transcripting">
-        <h3>"{transcript}"</h3>
+        {transcript.length ? <h3>"{transcript}"</h3> : ""}
       </div>
+
       <br />
       <Form id="addTransForm" className="savedTransContainer">
         {individualTans.map((a) => (
@@ -113,14 +127,21 @@ const Transcript = () => {
       </Form>
 
       <div className="control">
-        <Button
-          onClick={(e) => {
-            start(e);
-            setClicked(true);
-          }}
-        >
-          Start Transcription
-        </Button>
+        {!listening ? (
+          <Button
+            onClick={(e) => {
+              start(e);
+              setClicked(true);
+              setCounter(2);
+              setStartTimer(true);
+            }}
+          >
+            Start Transcription
+          </Button>
+        ) : (
+          " "
+        )}
+        ;
         <br />
         <Button onClick={(fullStop, stop)}>Stop Transcription</Button>
         <br />
