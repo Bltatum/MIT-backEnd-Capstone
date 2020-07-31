@@ -17,9 +17,7 @@ export const IncidentProvider = (props) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-        .then((res) => res.json())
-        .then(setIncidents)
+      }).then((res) => res.json())
     );
 
   const addIncident = (incident) =>
@@ -111,7 +109,7 @@ export const IncidentProvider = (props) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }).then((res) => res.json())
+      }).then((res) => res.json().then(setIncidents))
     );
   };
 
