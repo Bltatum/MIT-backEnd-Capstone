@@ -29,12 +29,6 @@ namespace MIT.Controllers
 
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(_incidentRepository.GetAll());
-        }
-
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -74,7 +68,9 @@ namespace MIT.Controllers
         [HttpGet("search")]
         public IActionResult Search(string q, bool sortDesc)
         {
-            return Ok(_incidentRepository.Search(q, sortDesc));
+            var user = GetCurrentUserProfile();
+            var userId = user.Id;
+            return Ok(_incidentRepository.Search(q, sortDesc, userId));
         }
 
         [HttpPost]
