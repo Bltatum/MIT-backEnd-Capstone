@@ -10,9 +10,7 @@ import {
 } from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import { useHistory } from "react-router-dom";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import SpeechRecognition from "react-speech-recognition";
 
 export default function Header() {
   const { isLoggedIn, logout } = useContext(UserProfileContext);
@@ -49,12 +47,14 @@ export default function Header() {
                       className="nav-link"
                       style={{ cursor: "pointer" }}
                       onClick={logout}
+                      href=" "
                     >
                       Logout
                     </a>
                   </NavItem>
                   <NavItem>
                     <a
+                      href=" "
                       aria-current="page"
                       className="nav-link"
                       style={{ cursor: "pointer" }}
@@ -69,6 +69,7 @@ export default function Header() {
                   </NavItem>
                   <NavItem>
                     <a
+                      href=" "
                       aria-current="page"
                       className="nav-link"
                       style={{ cursor: "pointer" }}
