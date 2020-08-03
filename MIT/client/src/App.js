@@ -6,6 +6,7 @@ import "./App.css";
 import Header from "./components/Header";
 import { IndividualTranscriptProvider } from "./providers/IndividualTranscriptProvider";
 import { IncidentProvider } from "./providers/IncidentProvider";
+import { HospitalProvider } from "./providers/HospitalProvider";
 
 function App() {
   return (
@@ -14,8 +15,10 @@ function App() {
         <UserProfileProvider>
           <IncidentProvider>
             <IndividualTranscriptProvider>
-              <Header />
-              <ApplicationViews />
+              <HospitalProvider>
+                <Header />
+                <ApplicationViews />
+              </HospitalProvider>
             </IndividualTranscriptProvider>
           </IncidentProvider>
         </UserProfileProvider>

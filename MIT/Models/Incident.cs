@@ -28,6 +28,10 @@ namespace MIT.Models
         [Required]
         public DateTime BeginDateTime { get; set; }
 
+        public int? Hospital { get; set; }
+
+        public bool? Emergency { get; set; }
+
 
        
         public DateTime? EndDateTime { get; set; }

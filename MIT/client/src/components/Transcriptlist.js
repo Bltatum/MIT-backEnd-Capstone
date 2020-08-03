@@ -71,10 +71,7 @@ const Transcript = () => {
       beginDateTime: incident.beginDateTime,
       endDateTime: endDate,
     };
-    editIncident(updatedIncident.id, updatedIncident).then(
-      // window.location.reload(false)
-      routeChange
-    );
+    editIncident(updatedIncident.id, updatedIncident).then(routeChange);
   };
 
   useEffect(() => {
