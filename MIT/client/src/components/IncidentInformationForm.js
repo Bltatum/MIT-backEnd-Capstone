@@ -11,12 +11,9 @@ export const IncidentInformationForm = ({
   const { editIncident } = useContext(IncidentContext);
   const { getAllHospitals, hospitals } = useContext(HospitalContext);
   const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
 
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  //const [incident, setIncident] = useState(incident);
 
   useEffect(() => {
     getAllHospitals();
@@ -43,6 +40,7 @@ export const IncidentInformationForm = ({
   const hospital = useRef();
   const emergency = useRef();
   const notes = useRef();
+  const drugs = useRef();
 
   const edit = () => {
     const whichHospital = parseInt(hospital.current.value);
@@ -53,9 +51,10 @@ export const IncidentInformationForm = ({
       address: address.current.value,
       beginDateTime: incident.beginDateTime,
       endDateTime: incident.endDateTime,
-      hospital: whichHospital,
+      hospitalId: whichHospital,
       emergency: emergencyTo,
-      comment: notes.current.value,
+      notes: notes.current.value,
+      drugs: drugs.current.value,
       imageLocation: image ? image : incident.imageLocation,
     };
 
@@ -84,7 +83,7 @@ export const IncidentInformationForm = ({
             name="hospital"
             id="hospitalId"
             className="form-control"
-            defaultValue={incident.hospital}
+            defaultValue={incident.hospitalId}
             ref={hospital}
             style={{ width: "15rem" }}
           >
@@ -97,9 +96,7 @@ export const IncidentInformationForm = ({
               );
             })}
           </select>
-        </div>
 
-        <div className="form-group">
           <label htmlFor="ifr"> Transport mode to Hospital</label>
           <select
             name="emergengy"
@@ -115,29 +112,38 @@ export const IncidentInformationForm = ({
             <option value="1">Emergency</option>
             <option value="0">Non Emergency</option>
           </select>
+
+          <label htmlFor="drugs"> Drugs Given </label>
+          <input
+            type="text"
+            name="drugs"
+            className="form-control"
+            defaultValue={incident.drugs}
+            ref={drugs}
+          />
+
+          <label htmlFor="notes"> Notes </label>
+          <textarea
+            type="text"
+            name="notes"
+            className="form-control"
+            defaultValue={incident.notes}
+            ref={notes}
+          />
+
+          <label htmlFor="image"> Image </label>
+          <Input
+            type="file"
+            name="file"
+            placeholder="Upload image here"
+            onChange={uploadImage}
+          />
+          {loading ? (
+            <h4>Loading...</h4>
+          ) : (
+            <img src={image} style={{ width: "100px" }} alt=" " />
+          )}
         </div>
-
-        <label htmlFor="notes"> Notes </label>
-        <textarea
-          type="text"
-          name="notes"
-          className="form-control"
-          defaultValue={incident.comment}
-          ref={notes}
-        />
-
-        <label htmlFor="image"> Image </label>
-        <Input
-          type="file"
-          name="file"
-          placeholder="Upload image here"
-          onChange={uploadImage}
-        />
-        {loading ? (
-          <h4>Loading...</h4>
-        ) : (
-          <img src={image} style={{ width: "100px" }} alt=" " />
-        )}
       </fieldset>
       <Button
         className="button"

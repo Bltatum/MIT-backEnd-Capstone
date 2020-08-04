@@ -75,6 +75,33 @@ const IncidentDetails = () => {
           <div>
             <h5 className="header">Date: {formatedDate}</h5>
           </div>
+          {incident.hospital ? (
+            <div>
+              <h6 className="header">
+                Transported to: {incident.hospital.name}
+              </h6>
+            </div>
+          ) : (
+            " "
+          )}
+          {incident.emergency !== undefined ? (
+            <div>
+              <h6 className="header">
+                Transport Mode:{" "}
+                {incident.emergency === true ? "Emergency" : "Non Emergency"}
+              </h6>
+            </div>
+          ) : (
+            " "
+          )}
+          {incident.comment ? (
+            <div>
+              <h6 className="header">Notes: {incident.comment}</h6>
+            </div>
+          ) : (
+            " "
+          )}
+
           <div className="indTrans">
             {incident.individualTranscript === undefined ? (
               <p>No transcript available</p>

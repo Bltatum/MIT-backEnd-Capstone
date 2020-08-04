@@ -23,7 +23,8 @@ namespace MIT.Repositories
         public Incident GetById(int id)
         {
             return _context.Incident.Include(i => i.UserProfile)
-                              .Include(i => i.IndividualTranscript)
+                                   .Include(i => i.IndividualTranscript)
+                                   .Include(i => i.Hospital)
                                .FirstOrDefault(i => i.Id == id);
 
         }
