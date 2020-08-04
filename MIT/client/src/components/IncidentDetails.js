@@ -37,16 +37,14 @@ const IncidentDetails = () => {
     formatedDate = month + "/" + day + "/" + year;
   }
 
-  //   let formatedTransDate = null;
-  //   let unformatedTransDate = null;
+  // let formatedTransDate = null;
+  // let unformatedTransDate = null;
 
-  //   if (incident.individualTranscript.startDateTime != null) {
-  //     unformatedTransDate = incident.individualTranscript.startDateTime.split(
-  //       "T"
-  //     )[0];
-  //     const [year, month, day] = unformatedTransDate.split("-");
-  //     formatedTransDate = month + "/" + day + "/" + year;
-  //   }
+  // unformatedTransDate = incident.individualTranscript.startDateTime.split(
+  //   "T"
+  // )[1];
+  // const [hh, mm, ss] = unformatedTransDate.split(":");
+  // formatedTransDate = hh + ":" + mm + ":" + ss;
 
   const history = useHistory();
 
@@ -81,7 +79,7 @@ const IncidentDetails = () => {
           ) : (
             " "
           )}
-          {incident.emergency !== undefined ? (
+          {incident.emergency !== null ? (
             <div>
               <h6 className="header">
                 Transport Mode:{" "}
@@ -105,7 +103,8 @@ const IncidentDetails = () => {
             ) : (
               incident.individualTranscript.map((it) => (
                 <p key={it.id}>
-                  {it.startDateTime}:<br /> {it.text}
+                  {it.startDateTime.split(/[T\\.]/)[1]}
+                  <br /> {it.text}
                 </p>
               ))
             )}

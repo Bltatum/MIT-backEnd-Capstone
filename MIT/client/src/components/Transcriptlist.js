@@ -44,17 +44,7 @@ const Transcript = () => {
 
   let date = new Date();
   let formattedDate =
-    date.getMonth() +
-    "-" +
-    (date.getDate() + 1) +
-    "-" +
-    date.getFullYear() +
-    " " +
-    date.getHours() +
-    ":" +
-    date.getMinutes() +
-    ":" +
-    date.getSeconds();
+    date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
   useEffect(() => {
     getIncident(id).then(setIncident);
@@ -79,10 +69,10 @@ const Transcript = () => {
       reset();
       setIndividualTrans([
         ...individualTans,
-        formattedDate + "-" + finalTranscript,
+        formattedDate + "-" + " " + finalTranscript,
       ]);
       addIndividualTranscript({
-        startDateTime: new Date(),
+        startDateTime: formattedDate,
         text: finalTranscript,
         incidentId: id,
         userProfileId: userProfileId,

@@ -81,7 +81,7 @@ export const IncidentInformationForm = ({
             name="hospital"
             id="hospitalId"
             className="form-control"
-            value={hospitalId}
+            value={hospitalId ? hospitalId : " "}
             onChange={(e) => setHospital(parseInt(e.target.value))}
             style={{ width: "15rem", maxheight: "20rem", overflow: "scroll" }}
           >
@@ -101,14 +101,14 @@ export const IncidentInformationForm = ({
             id="emergency"
             className="form-control"
             value={emergency ? emergency : " "}
-            onChange={(e) => setEmergency(parseInt(e.target.value))}
+            onChange={(e) =>
+              setEmergency(e.target.value !== " " ? e.target.value : null)
+            }
             style={{ width: "15rem" }}
           >
-            <option value=" ">
-              {incident.emergency === true ? "Emergency" : "Non Emergency"}
-            </option>
-            <option value="1">Emergency</option>
-            <option value="0">Non Emergency</option>
+            <option value=" ">Tranport Mode </option>
+            <option value="true">Emergency</option>
+            <option value="false">Non Emergency</option>
           </select>
 
           <label htmlFor="drugs"> Drugs Given </label>
