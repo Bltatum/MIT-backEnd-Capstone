@@ -45,13 +45,17 @@ h5 {
 }
 
 .toast {
-  position: fixed;
-  background-color: black;
-  margin-top: 15rem;
-  margin-left: 3.5rem;
-}
+  background-color: white;
 
+  position: absolute;
+  top: 20rem;
+  right: 4rem;
+  width: 15rem;
+}
 .toast-body {
+  background-color: white;
+}
+.toastButtonContainer {
   background-color: white;
 }
 .buttonContainer {
@@ -78,10 +82,7 @@ input {
   background-color: lightgray;
   width: 14rem;
 }
-.toastImage {
-  justify-self: center;
-  margin-right: 4rem;
-}
+
 img {
   margin-top: 1rem;
 }

@@ -6,6 +6,9 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  Toast,
+  ToastBody,
+  ToastHeader,
 } from "reactstrap";
 import { useParams, useHistory } from "react-router-dom";
 import React, { useState, useContext, useEffect } from "react";
@@ -18,6 +21,8 @@ const IncidentDetails = () => {
   const [incident, setIncident] = useState({});
   const [editModal, setEditModal] = useState(false);
   const toggleEdit = () => setEditModal(!editModal);
+  const [showToast, setShowToast] = useState(false);
+  const toggleToast = () => setShowToast(!showToast);
 
   const { id } = useParams();
   const refreshData = () => {
@@ -37,15 +42,6 @@ const IncidentDetails = () => {
     formatedDate = month + "/" + day + "/" + year;
   }
 
-  // let formatedTransDate = null;
-  // let unformatedTransDate = null;
-
-  // unformatedTransDate = incident.individualTranscript.startDateTime.split(
-  //   "T"
-  // )[1];
-  // const [hh, mm, ss] = unformatedTransDate.split(":");
-  // formatedTransDate = hh + ":" + mm + ":" + ss;
-
   const history = useHistory();
 
   const routeChange = () => {
@@ -60,58 +56,71 @@ const IncidentDetails = () => {
   };
 
   return (
-    <div className="detailscontainer">
-      <Card>
-        <CardBody className="details">
-          <CardImg top src={incident.imageLocation} alt={incident.address} />
-          <div className="header">
-            <h4>Address: {incident.address}</h4>
-          </div>
-          <div>
-            <h5 className="header">Date: {formatedDate}</h5>
-          </div>
-          {incident.hospital ? (
-            <div>
-              <h6 className="header">
-                Transported to: {incident.hospital.name}
-              </h6>
+    <>
+      <div className="detailscontainer">
+        <Card>
+          <CardBody className="details">
+            <CardImg top src={incident.imageLocation} alt={incident.address} />
+            <div className="header">
+              <h4>Address: {incident.address}</h4>
             </div>
-          ) : (
-            " "
-          )}
-          {incident.emergency !== null ? (
             <div>
-              <h6 className="header">
-                Transport Mode:{" "}
-                {incident.emergency === true ? "Emergency" : "Non Emergency"}
-              </h6>
+              <h5 className="header">Date: {formatedDate}</h5>
             </div>
-          ) : (
-            " "
-          )}
-          {incident.comment ? (
-            <div>
-              <h6 className="header">Notes: {incident.comment}</h6>
-            </div>
-          ) : (
-            " "
-          )}
-
-          <div className="indTrans">
-            {incident.individualTranscript === undefined ? (
-              <p>No transcript available</p>
+            {incident.hospital ? (
+              <div>
+                <h6 className="header">
+                  Transported to: {incident.hospital.name}
+                </h6>
+              </div>
             ) : (
-              incident.individualTranscript.map((it) => (
-                <p key={it.id}>
-                  {it.startDateTime.split(/[T\\.]/)[1]}
-                  <br /> {it.text}
-                </p>
-              ))
+              " "
             )}
-          </div>
-        </CardBody>
-      </Card>
-      <div className="buttons">
+            {incident.emergency !== null ? (
+              <div>
+                <h6 className="header">
+                  Transport Mode:{" "}
+                  {incident.emergency === true ? "Emergency" : "Non Emergency"}
+                </h6>
+              </div>
+            ) : (
+              " "
+            )}
+            {incident.comment ? (
+              <div>
+                <h6 className="header">Notes: {incident.comment}</h6>
+              </div>
+            ) : (
+              " "
+            )}
+
+            <div className="indTrans">
+              {incident.individualTranscript === undefined ? (
+                <p>No transcript available</p>
+              ) : (
+                incident.individualTranscript.map((it) => (
+                  <p key={it.id}>
+                    {it.startDateTime.split(/[T\\.]/)[1]}
+                    <br /> {it.text}
+                  </p>
+                ))
+              )}
+            </div>
+          </CardBody>
+        </Card>
+        <div>
+          <Toast isOpen={showToast}>
+            <ToastBody>Confirm Delete</ToastBody>
+            <div className="toastButtonContainer">
+              <Button onClick={toggleToast}>Cancel</Button>
+              <Button onClick={Delete} color="danger">
+                Delete
+              </Button>
+            </div>
+          </Toast>
+        </div>
+
+        <div className="buttons"></div>
         <Button
           className="button"
           onClick={(evt) => {
@@ -123,9 +132,8 @@ const IncidentDetails = () => {
         </Button>
         <Button
           className="button"
-          onClick={(evt) => {
-            evt.preventDefault();
-            Delete();
+          onClick={() => {
+            toggleToast();
           }}
         >
           Delete
@@ -153,7 +161,7 @@ const IncidentDetails = () => {
           />
         </ModalBody>
       </Modal>
-    </div>
+    </>
   );
 };
 
