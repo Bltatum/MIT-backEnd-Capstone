@@ -6,28 +6,29 @@ import {
   ToastBody,
   Input,
   CardImg,
+  Modal,
+  ModalHeader,
+  ModalBody,
 } from "reactstrap";
 import { useParams, useHistory } from "react-router-dom";
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { IncidentContext } from "../providers/IncidentProvider";
 import "../css/Incident.css";
+import { IncidentInformationForm } from "./IncidentInformationForm";
 
 const IncidentDetails = () => {
-  const { getIncident, deleteIncidentById, editIncident } = useContext(
-    IncidentContext
-  );
+  const { getIncident, deleteIncidentById } = useContext(IncidentContext);
   const [incident, setIncident] = useState({});
-  const [showToast, setShowToast] = useState(false);
-  const toggleToast = () => setShowToast(!showToast);
-  const [showImageToast, setShowImageToast] = useState(false);
-  const toggleImageToast = () => setShowImageToast(!showImageToast);
-  const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const toggleEdit = () => setEditModal(!editModal);
 
   const { id } = useParams();
+  const refreshData = () => {
+    getIncident(id).then(setIncident);
+  };
 
   useEffect(() => {
-    getIncident(id).then(setIncident);
+    refreshData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   let formatedDate = null;
@@ -56,56 +57,11 @@ const IncidentDetails = () => {
     let path = `/incidents`;
     history.push(path);
   };
-  const address = useRef();
-  const edit = () => {
-    const updatedIncident = {
-      id: incident.id,
-      userProfileId: incident.userProfileId,
-      address: address.current.value,
-      beginDateTime: incident.beginDateTime,
-      endDateTime: incident.endDateTime,
-    };
-    editIncident(updatedIncident.id, updatedIncident).then(() => {
-      getIncident(id).then(setIncident).then(toggleToast);
-    });
-  };
-
-  const addImage = () => {
-    const updatedIncident = {
-      id: incident.id,
-      userProfileId: incident.userProfileId,
-      address: incident.address,
-      beginDateTime: incident.beginDateTime,
-      endDateTime: incident.endDateTime,
-      imageLocation: image,
-    };
-    editIncident(updatedIncident.id, updatedIncident).then(() => {
-      getIncident(id).then(setIncident).then(toggleImageToast);
-    });
-  };
 
   const Delete = () => {
     deleteIncidentById(incident.id).then((p) => {
       history.push("/incidents");
     });
-  };
-
-  const uploadImage = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "brennen");
-    setLoading(true);
-    const res = await fetch(
-      "	https://api.cloudinary.com/v1_1/dxpkkasks/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-    const file = await res.json();
-    setImage(file.secure_url);
-    setLoading(false);
   };
 
   return (
@@ -119,6 +75,33 @@ const IncidentDetails = () => {
           <div>
             <h5 className="header">Date: {formatedDate}</h5>
           </div>
+          {incident.hospital ? (
+            <div>
+              <h6 className="header">
+                Transported to: {incident.hospital.name}
+              </h6>
+            </div>
+          ) : (
+            " "
+          )}
+          {incident.emergency !== undefined ? (
+            <div>
+              <h6 className="header">
+                Transport Mode:{" "}
+                {incident.emergency === true ? "Emergency" : "Non Emergency"}
+              </h6>
+            </div>
+          ) : (
+            " "
+          )}
+          {incident.comment ? (
+            <div>
+              <h6 className="header">Notes: {incident.comment}</h6>
+            </div>
+          ) : (
+            " "
+          )}
+
           <div className="indTrans">
             {incident.individualTranscript === undefined ? (
               <p>No transcript available</p>
@@ -131,49 +114,6 @@ const IncidentDetails = () => {
             )}
           </div>
         </CardBody>
-
-        <Toast isOpen={showToast} className="toast">
-          <ToastBody>
-            <input
-              id="address"
-              ref={address}
-              type="text"
-              placeholder={incident.address}
-              className="form-control"
-            />
-          </ToastBody>
-          <div className="buttonContainer">
-            <Button onClick={toggleToast} className="cancel">
-              Cancel
-            </Button>
-            <Button onClick={edit} className="save">
-              Save
-            </Button>
-          </div>
-        </Toast>
-        <Toast isOpen={showImageToast} className="toastImage">
-          <ToastBody>
-            <Input
-              type="file"
-              name="file"
-              placeholder="Upload image here"
-              onChange={uploadImage}
-            />
-            {loading ? (
-              <h4>Loading...</h4>
-            ) : (
-              <img src={image} style={{ width: "100px" }} alt=" " />
-            )}
-          </ToastBody>
-          <div className="buttonContainer">
-            <Button onClick={toggleImageToast} className="cancel">
-              Cancel
-            </Button>
-            <Button onClick={addImage} className="saveImage">
-              Save Image
-            </Button>
-          </div>
-        </Toast>
       </Card>
       <div className="buttons">
         <Button
@@ -196,23 +136,27 @@ const IncidentDetails = () => {
         </Button>
         <Button
           className="button"
-          onClick={(evt) => {
-            evt.preventDefault();
-            toggleToast();
+          onClick={() => {
+            toggleEdit();
           }}
         >
-          Edit Address
-        </Button>
-        <Button
-          className="button"
-          onClick={(evt) => {
-            evt.preventDefault();
-            toggleImageToast();
-          }}
-        >
-          Add Image
+          Add Details
         </Button>
       </div>
+
+      <Modal isOpen={editModal} toggle={toggleEdit}>
+        <ModalHeader toggle={toggleEdit} style={{ backgroundColor: "black" }}>
+          Add Incident Information
+        </ModalHeader>
+        <ModalBody>
+          <IncidentInformationForm
+            key={incident.id}
+            toggleEdit={toggleEdit}
+            incident={incident}
+            refreshData={refreshData}
+          />
+        </ModalBody>
+      </Modal>
     </div>
   );
 };

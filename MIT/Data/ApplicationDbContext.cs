@@ -17,6 +17,7 @@ namespace MIT.Data
         public DbSet<Incident> Incident { get; set; }
 
         public DbSet<IndividualTranscript> IndividualTranscript{ get; set; }
-      
+        public DbSet<Hospital> Hospital { get; set; }
+
     }
 }

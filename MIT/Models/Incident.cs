@@ -23,13 +23,18 @@ namespace MIT.Models
         [Required]
         public string Address { get; set; }
 
-        public string Comment { get; set; }
+        public string Notes { get; set; }
 
         [Required]
         public DateTime BeginDateTime { get; set; }
 
+        public int? HospitalId { get; set; }
 
-       
+        public Hospital Hospital { get; set; }
+
+        public bool? Emergency { get; set; }
+
+        public string Drugs { get; set;}
         public DateTime? EndDateTime { get; set; }
 
         public List<IndividualTranscript> IndividualTranscript { get; set; }

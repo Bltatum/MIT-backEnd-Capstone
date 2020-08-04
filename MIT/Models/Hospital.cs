@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace MIT.Models
 {
-    public class Images
+    public class Hospital
     {
+
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

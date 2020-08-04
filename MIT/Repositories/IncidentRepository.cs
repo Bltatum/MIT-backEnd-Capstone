@@ -13,26 +13,18 @@ namespace MIT.Repositories
     {
 
         private readonly ApplicationDbContext _context;
-        private readonly UserProfileRepository _userProfileRepository;
 
         public IncidentRepository(ApplicationDbContext context)
         {
             _context = context;
-            _userProfileRepository = new UserProfileRepository(context);
         }
 
-        public List<Incident> GetAll()
-        {
-            return _context.Incident
-                           .Include(i => i.UserProfile)
-                           .Include(i => i.Comment)
-                           .ToList();
-        }
 
         public Incident GetById(int id)
         {
             return _context.Incident.Include(i => i.UserProfile)
-                              .Include(i => i.IndividualTranscript)
+                                   .Include(i => i.IndividualTranscript)
+                                   .Include(i => i.Hospital)
                                .FirstOrDefault(i => i.Id == id);
 
         }

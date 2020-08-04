@@ -10,16 +10,6 @@ export const IncidentProvider = (props) => {
   const apiUrl = "/api/incident";
   const { getToken } = useContext(UserProfileContext);
 
-  const getAllIncidents = () =>
-    getToken().then((token) =>
-      fetch(apiUrl, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((res) => res.json())
-    );
-
   const addIncident = (incident) =>
     getToken().then((token) =>
       fetch(apiUrl, {
@@ -117,7 +107,6 @@ export const IncidentProvider = (props) => {
     <IncidentContext.Provider
       value={{
         Incidents,
-        getAllIncidents,
         getUserIncidents,
         getIncident,
         addIncident,
