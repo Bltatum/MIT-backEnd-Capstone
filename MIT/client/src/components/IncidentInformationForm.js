@@ -10,13 +10,15 @@ export const IncidentInformationForm = ({
 }) => {
   const { editIncident } = useContext(IncidentContext);
   const { getAllHospitals, hospitals } = useContext(HospitalContext);
-  const [modal, setModal] = useState(false);
 
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hospitalId, setHospital] = useState(incident.hospitalId);
+  const [emergency, setEmergency] = useState(incident.emergency);
 
   useEffect(() => {
     getAllHospitals();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const uploadImage = async (e) => {
@@ -37,22 +39,18 @@ export const IncidentInformationForm = ({
     setLoading(false);
   };
   const address = useRef();
-  const hospital = useRef();
-  const emergency = useRef();
   const notes = useRef();
   const drugs = useRef();
 
   const edit = () => {
-    const whichHospital = parseInt(hospital.current.value);
-    const emergencyTo = parseInt(emergency.current.value);
     const updatedIncident = {
       id: incident.id,
       userProfileId: incident.userProfileId,
       address: address.current.value,
       beginDateTime: incident.beginDateTime,
       endDateTime: incident.endDateTime,
-      hospitalId: whichHospital,
-      emergency: emergencyTo,
+      hospitalId: parseInt(hospitalId),
+      emergency: emergency,
       notes: notes.current.value,
       drugs: drugs.current.value,
       imageLocation: image ? image : incident.imageLocation,
@@ -83,9 +81,9 @@ export const IncidentInformationForm = ({
             name="hospital"
             id="hospitalId"
             className="form-control"
-            defaultValue={incident.hospitalId}
-            ref={hospital}
-            style={{ width: "15rem" }}
+            value={hospitalId}
+            onChange={(e) => setHospital(parseInt(e.target.value))}
+            style={{ width: "15rem", maxheight: "20rem", overflow: "scroll" }}
           >
             <option value="">Select Hospital</option>
             {hospitals.map((h) => {
@@ -99,14 +97,14 @@ export const IncidentInformationForm = ({
 
           <label htmlFor="ifr"> Transport mode to Hospital</label>
           <select
-            name="emergengy"
-            id="emergengy"
+            name="emergency"
+            id="emergency"
             className="form-control"
-            defaultValue={incident.emergency}
-            ref={emergency}
+            value={emergency ? emergency : " "}
+            onChange={(e) => setEmergency(parseInt(e.target.value))}
             style={{ width: "15rem" }}
           >
-            <option value="0">
+            <option value=" ">
               {incident.emergency === true ? "Emergency" : "Non Emergency"}
             </option>
             <option value="1">Emergency</option>

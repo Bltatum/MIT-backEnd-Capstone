@@ -9,7 +9,6 @@ import {
   NavItem,
 } from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
-import { useHistory } from "react-router-dom";
 import SpeechRecognition from "react-speech-recognition";
 
 export default function Header() {
@@ -18,17 +17,6 @@ export default function Header() {
   const toggle = () => setIsOpen(!isOpen);
   const stop = () => SpeechRecognition.stopListening();
 
-  const history = useHistory();
-
-  const routeHome = () => {
-    let path = `/`;
-    history.push(path);
-  };
-
-  const routeMyIncidents = () => {
-    let path = `/incidents`;
-    history.push(path);
-  };
   if (isLoggedIn === true) {
     return (
       <div>
@@ -42,6 +30,28 @@ export default function Header() {
               {isLoggedIn && (
                 <>
                   <NavItem>
+                    <RRNavLink
+                      to="/"
+                      onClick={(e) => {
+                        toggle(e);
+                        stop();
+                      }}
+                    >
+                      Home
+                    </RRNavLink>
+                  </NavItem>
+                  <NavItem>
+                    <RRNavLink
+                      to="/incidents"
+                      onClick={(e) => {
+                        toggle(e);
+                        stop();
+                      }}
+                    >
+                      My Incidents
+                    </RRNavLink>
+                  </NavItem>
+                  <NavItem>
                     <a
                       aria-current="page"
                       className="nav-link"
@@ -50,36 +60,6 @@ export default function Header() {
                       href=" "
                     >
                       Logout
-                    </a>
-                  </NavItem>
-                  <NavItem>
-                    <a
-                      href=" "
-                      aria-current="page"
-                      className="nav-link"
-                      style={{ cursor: "pointer" }}
-                      onClick={(e) => {
-                        routeHome(e);
-                        toggle();
-                        stop();
-                      }}
-                    >
-                      Home
-                    </a>
-                  </NavItem>
-                  <NavItem>
-                    <a
-                      href=" "
-                      aria-current="page"
-                      className="nav-link"
-                      style={{ cursor: "pointer" }}
-                      onClick={(e) => {
-                        routeMyIncidents(e);
-                        toggle();
-                        stop();
-                      }}
-                    >
-                      My Incidents
                     </a>
                   </NavItem>
                 </>
