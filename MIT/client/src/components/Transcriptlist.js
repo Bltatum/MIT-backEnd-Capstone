@@ -69,7 +69,7 @@ const Transcript = () => {
       reset();
       setIndividualTrans([
         ...individualTans,
-        formattedDate + "-" + " " + finalTranscript,
+        formattedDate + "-  " + finalTranscript,
       ]);
       addIndividualTranscript({
         startDateTime: formattedDate,
@@ -78,6 +78,7 @@ const Transcript = () => {
         userProfileId: userProfileId,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalTranscript]);
 
   useEffect(() => {
@@ -91,7 +92,7 @@ const Transcript = () => {
   }
 
   return (
-    <div className="transcript">
+    <div className="transcript" style={{ height: "30rem" }}>
       <span className="listening">
         {counter > 0 ? (
           <div style={{ color: "white" }}>

@@ -43,10 +43,8 @@ h4,
 h5 {
   background-color: lightgrey;
 }
-
 .toast {
-  background-color: white;
-
+  border-width: 3px;
   position: absolute;
   top: 20rem;
   right: 4rem;
@@ -55,6 +53,13 @@ h5 {
 .toast-body {
   background-color: white;
 }
+.toast.show {
+  display: block;
+  opacity: 1;
+  border: solid;
+  border-width: medium;
+}
+
 .toastButtonContainer {
   background-color: white;
 }
@@ -93,4 +98,26 @@ img {
 .modal-title {
   color: white;
   background-color: black;
+}
+#hospitalId {
+  width: 15rem;
+  overflow: scroll;
+}
+option {
+  color: white;
+}
+#dropdownMenu {
+  margin-top: 1rem;
+  width: 318px;
+  text-align: center;
+  padding: 0.5rem;
+  height: 18rem;
+  overflow: scroll;
+  margin-left: 1.25rem;
+  border: solid;
+  border-width: 3px;
+}
+.individualIncidentContainer {
+  height: 27rem;
+  overflow: scroll;
 }

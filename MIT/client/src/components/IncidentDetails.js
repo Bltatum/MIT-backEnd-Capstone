@@ -8,7 +8,6 @@ import {
   ModalBody,
   Toast,
   ToastBody,
-  ToastHeader,
 } from "reactstrap";
 import { useParams, useHistory } from "react-router-dom";
 import React, { useState, useContext, useEffect } from "react";
@@ -108,7 +107,7 @@ const IncidentDetails = () => {
             </div>
           </CardBody>
         </Card>
-        <div>
+        <div className="toastDelete">
           <Toast isOpen={showToast}>
             <ToastBody>Confirm Delete</ToastBody>
             <div className="toastButtonContainer">

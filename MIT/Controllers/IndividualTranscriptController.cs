@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MIT.Data;
 using MIT.Models;
@@ -34,24 +30,6 @@ namespace MIT.Controllers
         {
             return Ok(_individualTranscriptRepository.GetAll());
         }
-
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var individualTranscript = _individualTranscriptRepository.GetById(id);
-            if (individualTranscript == null)
-            {
-                return NotFound();
-            }
-            return Ok(individualTranscript);
-        }
-
-        [HttpGet("getbyuser/{id}")]
-        public IActionResult GetByUser(int id)
-        {
-            return Ok(_individualTranscriptRepository.GetByUserProfileId(id));
-        }
-
 
         [HttpPost]
         public IActionResult Post(IndividualTranscript individualTranscript)

@@ -20,7 +20,7 @@ export default function Header() {
   if (isLoggedIn === true) {
     return (
       <div>
-        <Navbar color="dark" dark expand="md">
+        <Navbar color="dark" dark expand="lg">
           <NavbarBrand tag={RRNavLink} to="/">
             M.I.T.
           </NavbarBrand>
@@ -29,9 +29,10 @@ export default function Header() {
             <Nav className="mr-auto" navbar>
               {isLoggedIn && (
                 <>
-                  <NavItem>
+                  <NavItem color="white">
                     <RRNavLink
                       to="/"
+                      style={{ color: "white", textDecoration: "none" }}
                       onClick={(e) => {
                         toggle(e);
                         stop();
@@ -43,6 +44,7 @@ export default function Header() {
                   <NavItem>
                     <RRNavLink
                       to="/incidents"
+                      style={{ color: "white", textDecoration: "none" }}
                       onClick={(e) => {
                         toggle(e);
                         stop();
@@ -55,9 +57,8 @@ export default function Header() {
                     <a
                       aria-current="page"
                       className="nav-link"
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: "pointer", color: "white" }}
                       onClick={logout}
-                      href=" "
                     >
                       Logout
                     </a>
@@ -72,7 +73,7 @@ export default function Header() {
   } else {
     return (
       <div>
-        <h1>M.I.T.</h1>
+        <h1>Medical Incident Transcriber</h1>
       </div>
     );
   }
