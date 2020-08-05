@@ -67,15 +67,6 @@ export const IncidentInformationForm = ({
     <form className="form--UpdateIncident">
       <fieldset>
         <div className="form-group">
-          <label htmlFor="address"> Address </label>
-          <input
-            type="text"
-            name="address"
-            className="form-control"
-            defaultValue={incident.address}
-            ref={address}
-          />
-
           <label htmlFor="hospital">Hospital Transported</label>
           <select
             name="hospital"
@@ -83,7 +74,7 @@ export const IncidentInformationForm = ({
             className="form-control"
             value={hospitalId ? hospitalId : " "}
             onChange={(e) => setHospital(parseInt(e.target.value))}
-            style={{ width: "15rem", maxheight: "20rem", overflow: "scroll" }}
+            style={{ width: "15rem" }}
           >
             <option value="">Select Hospital</option>
             {hospitals.map((h) => {
@@ -127,6 +118,15 @@ export const IncidentInformationForm = ({
             className="form-control"
             defaultValue={incident.notes}
             ref={notes}
+          />
+
+          <label htmlFor="address">Edit Address </label>
+          <input
+            type="text"
+            name="address"
+            className="form-control"
+            defaultValue={incident.address}
+            ref={address}
           />
 
           <label htmlFor="image"> Image </label>

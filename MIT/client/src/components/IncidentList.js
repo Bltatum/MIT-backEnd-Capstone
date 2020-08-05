@@ -41,17 +41,20 @@ const IncidentList = () => {
           type="text"
           onChange={handleChange}
           placeholder="Search Incidents"
+          style={{ width: "20rem", alignSelf: "center" }}
         />
         <Dropdown nav isOpen={open}>
           <DropdownMenu
-            right
             style={{
-              marginTop: "2rem",
+              marginTop: "1rem",
               width: "318px",
               textAlign: "center",
               padding: ".5rem",
-              height: "18rem",
+              height: "20rem",
               overflow: "scroll",
+              marginLeft: "1.25rem",
+              border: "solid",
+              borderWidth: "3px",
             }}
           >
             <DropdownItem header style={{ backgroundColor: "white" }}>
