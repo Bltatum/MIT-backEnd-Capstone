@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import SpeechRecognition from "react-speech-recognition";
+import "../css/Home.css";
 
 export default function Header() {
   const { isLoggedIn, logout } = useContext(UserProfileContext);
@@ -53,6 +54,7 @@ export default function Header() {
                       My Incidents
                     </RRNavLink>
                   </NavItem>
+
                   <NavItem>
                     <a
                       aria-current="page"

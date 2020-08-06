@@ -121,3 +121,6 @@ option {
   height: 27rem;
   overflow: scroll;
 }
+.modal-body {
+  background-color: black;
+}

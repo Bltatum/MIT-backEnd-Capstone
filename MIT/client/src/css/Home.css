@@ -17,3 +17,12 @@
   width: 15rem;
   margin-top: 2rem;
 }
+a.nav-link {
+  padding: 0;
+}
+a.active {
+  margin: 0.5rem;
+}
+li.nav-item {
+  background-color: black;
+}
