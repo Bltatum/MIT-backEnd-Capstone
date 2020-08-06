@@ -45,6 +45,7 @@ To start the application, run the following command in your terminal inside of t
 
 ```bash
 npm start
+```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Runs the app in the development mode.<br />
