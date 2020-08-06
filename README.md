@@ -13,13 +13,22 @@ Tech Used: <br />
 -Entinty Framework core <br />
 -MySQL express <br />
 
+## Installation
+
+To start the application, run the following command in your terminal inside of the MIT client directory:
+
+```bash
+npm start
+```
+## Dummy User Data
+
+To quickly get to the data login with the following dummy user data:
+
+Username: brennen@email.com
+
+Password: 123456
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## To run Project
-
-In the project directory, you can run:
-
-### `npm start`
-
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
