@@ -37,7 +37,7 @@ Tech Used: <br />
 
 7. Install your dependencies by running `npm install` from the same directory as your `package.json` file
 
-8. You will also need to install `bootstrap`, `reactstrap`, `react-router-dom`, `cloudinary-react`, `firebase`, and `lodash.debounce` in the same directory as your `package.json` file
+8. You will also need to install `react speech kit`, `bootstrap`, `reactstrap`, `react-router-dom`, `cloudinary-react`, `firebase`, and `lodash.debounce` in the same directory as your `package.json` file
 
 ## Start
 
