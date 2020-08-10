@@ -85,9 +85,9 @@ const IncidentDetails = () => {
             ) : (
               " "
             )}
-            {incident.comment ? (
+            {incident.notes ? (
               <div>
-                <h6 className="header">Notes: {incident.comment}</h6>
+                <h6 className="header">Notes: {incident.notes}</h6>
               </div>
             ) : (
               " "
