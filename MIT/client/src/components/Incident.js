@@ -32,7 +32,7 @@ const Incident = ({ incident }) => {
       <CardBody>
         <p>Address: {incident.address}</p>
         <p>Date: {formatedDate}</p>
-        <p>Personel: {incident.userProfile.lastName}</p>
+        <p>Personnel: {incident.userProfile.lastName}</p>
       </CardBody>
     </Card>
   );

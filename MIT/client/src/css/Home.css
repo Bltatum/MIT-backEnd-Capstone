@@ -26,3 +26,7 @@ a.active {
 li.nav-item {
   background-color: black;
 }
+.homePage {
+  height: 35.5rem;
+  background-color: black;
+}
